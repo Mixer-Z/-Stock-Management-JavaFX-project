@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!-- Main layout using BorderPane -->
+<BorderPane fx:id="root" styleClass="root" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml" fx:controller="controller.InventaireController">
+
+    <!-- Sidebar -->
+    <left>
+        <VBox fx:id="sidebar" styleClass="sidebar">
+            <HBox styleClass="logo-container">
+                <Label text="📦 Menu" styleClass="logo-label"/>
+            </HBox>
+            <VBox fx:id="menuContainer" spacing="10"/>
+        </VBox>
+    </left>
+
+    <!-- Top Bar -->
+    <top>
+        <HBox fx:id="topBar" styleClass="top-bar">
+            <Label text="👋 Bonjour, Magasinier!" styleClass="greeting-label"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <HBox styleClass="user-section" spacing="10">
+                <StackPane>
+                    <ImageView fx:id="notificationIcon" fitHeight="24" fitWidth="24" styleClass="notification-icon" onMouseClicked="#handleNotificationClick">
+                        <Image url="https://img.icons8.com/?size=100&amp;id=qMWu1S8BC8jh&amp;format=png&amp;color=1E90FF"/>
+                    </ImageView>
+                    <Label fx:id="notificationBadge" text="0" styleClass="notification-badge"/>
+                </StackPane>
+                <HBox styleClass="user-profile">
+                    <ImageView fitHeight="24" fitWidth="24" styleClass="profile-icon">
+                        <Image url="https://img.icons8.com/?size=24&amp;id=85050&amp;format=png&amp;color=1E90FF"/>
+                    </ImageView>
+                    <Label fx:id="usernameLabel" styleClass="username-label"/>
+                </HBox>
+                <Button fx:id="logoutBtn" text="Déconnexion" styleClass="logout-btn" onAction="#handleLogout"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- Center content -->
+    <center>
+        <VBox styleClass="main-content" minHeight="700">
+            <ScrollPane fitToWidth="true" styleClass="main-content-scroll" pannable="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" minHeight="700">
+                <content>
+                    <HBox spacing="10" alignment="TOP_CENTER" styleClass="content-pane">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+
+                        <!-- Filters Panel -->
+                        <VBox spacing="30" styleClass="panel" prefWidth="300" HBox.hgrow="SOMETIMES">
+                            <Label text="Filtres" styleClass="section-title"/>
+                            <GridPane hgap="10" vgap="10">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="NEVER" minWidth="80"/>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                </columnConstraints>
+
+                                <Label text="Locaux:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <TextField fx:id="filterLocal" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                <Label text="Article:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <TextField fx:id="filterArticle" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                                <Label text="Quantité:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                <TextField fx:id="filterQuantite" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                                <Button fx:id="btnReset" text="Réinitialiser" onAction="#handleReset" styleClass="btn btn-reset"
+                                        GridPane.columnIndex="1" GridPane.rowIndex="3" maxWidth="Infinity"/>
+                            </GridPane>
+                        </VBox>
+
+                        <!-- Table Panel -->
+                        <VBox spacing="30" styleClass="panel" HBox.hgrow="ALWAYS">
+                            <Label text="Inventaire - Articles et Locaux" styleClass="section-title"/>
+                            <TableView fx:id="tableStock" styleClass="stock-table" prefHeight="600">
+                                <columns>
+                                    <TableColumn fx:id="colArticle" text="Article" prefWidth="200" minWidth="150" maxWidth="250"/>
+                                    <TableColumn fx:id="colQuantite" text="Quantité" prefWidth="100" minWidth="80" maxWidth="150"/>
+                                    <TableColumn fx:id="colLocals" text="Locaux" prefWidth="300" minWidth="200" maxWidth="400"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
+                    </HBox>
+                </content>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>

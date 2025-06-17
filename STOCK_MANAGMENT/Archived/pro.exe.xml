@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>C:\Users\pc\Desktop\STOCK_MANAGMENT_PROJECT\Archived\Project.jar</jar>
+  <outfile>C:\Users\pc\Desktop\STOCK_MANAGMENT_PROJECT\Archived\Project.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl></downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon></icon>
+  <jre>
+    <path>%JAVA_HOME%;%PATH%</path>
+    <requiresJdk>false</requiresJdk>
+    <requires64Bit>false</requires64Bit>
+    <minVersion>17</minVersion>
+    <maxVersion></maxVersion>
+    <opt>--module-path</opt>
+    <opt>.\javafx-sdk-24\lib</opt>
+    <opt>--add-modules</opt>
+    <opt>javafx.controls,javafx.fxml</opt>
+  </jre>
+</launch4jConfig>

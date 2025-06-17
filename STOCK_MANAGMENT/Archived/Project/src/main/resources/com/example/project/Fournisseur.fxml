@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!-- Main layout using BorderPane -->
+<BorderPane fx:id="root" styleClass="root" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml" fx:controller="controller.FournisseurController">
+
+    <!-- Sidebar -->
+    <left>
+        <VBox fx:id="sidebar" styleClass="sidebar">
+            <HBox styleClass="logo-container">
+                <Label text="📦 Menu" styleClass="logo-label"/>
+            </HBox>
+            <VBox fx:id="menuContainer" spacing="10"/>
+        </VBox>
+    </left>
+
+    <!-- Top Bar -->
+    <top>
+        <HBox fx:id="topBar" styleClass="top-bar">
+            <Label text="👋 Bonjour, Magasinier!" styleClass="greeting-label"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <HBox styleClass="user-section" spacing="10">
+                <StackPane>
+                    <ImageView fx:id="notificationIcon" fitHeight="24" fitWidth="24" styleClass="notification-icon" onMouseClicked="#handleNotificationClick">
+                        <Image url="https://img.icons8.com/?size=100&amp;id=qMWu1S8BC8jh&amp;format=png&amp;color=1E90FF"/>
+                    </ImageView>
+                    <Label fx:id="notificationBadge" text="0" styleClass="notification-badge"/>
+                </StackPane>
+                <HBox styleClass="user-profile">
+                    <ImageView fitHeight="24" fitWidth="24" styleClass="profile-icon">
+                        <Image url="https://img.icons8.com/?size=24&amp;id=85050&amp;format=png&amp;color=1E90FF"/>
+                    </ImageView>
+                    <Label fx:id="usernameLabel" styleClass="username-label"/>
+                </HBox>
+                <Button fx:id="logoutBtn" text="Déconnexion" styleClass="logout-btn" onAction="#handleLogout"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- Center content -->
+    <center>
+        <VBox styleClass="main-content" minHeight="700">
+            <ScrollPane fitToWidth="true" styleClass="main-content-scroll" pannable="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" minHeight="700">
+                <content>
+                    <HBox spacing="10" alignment="TOP_CENTER" styleClass="content-pane">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+
+                        <!-- Filters Panel -->
+                        <VBox spacing="30" styleClass="panel" prefWidth="310" HBox.hgrow="SOMETIMES">
+                            <Label text="Filtres" styleClass="section-title"/>
+                            <GridPane hgap="10" vgap="10">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="NEVER" minWidth="100"/>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                </columnConstraints>
+
+                                <Label text="ID:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <TextField fx:id="filterId" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                <Label text="Nom:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <TextField fx:id="filterNom" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                                <Label text="Adresse:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                <TextField fx:id="filterAdresse" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                                <Label text="Téléphone:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                                <TextField fx:id="filterTelephone" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                                <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                                <TextField fx:id="filterEmail" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                                <Label text="Site Web:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                                <TextField fx:id="filterSiteWeb" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+                                <Label text="Personne Contact:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+                                <TextField fx:id="filterPersonneContact" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+                                <Label text="Notes:" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+                                <TextField fx:id="filterNotes" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+
+                                <Button fx:id="btnReset" text="Réinitialiser" onAction="#handleReset" styleClass="btn btn-reset"
+                                        GridPane.columnIndex="1" GridPane.rowIndex="8" maxWidth="Infinity"/>
+                            </GridPane>
+                        </VBox>
+
+                        <!-- Table Panel -->
+                        <VBox spacing="30" styleClass="panel" HBox.hgrow="ALWAYS">
+                            <Label text="Liste des Fournisseurs" styleClass="section-title"/>
+                            <TableView fx:id="tableFournisseurs" styleClass="fournisseur-table" prefHeight="495">
+                                <columns>
+                                    <TableColumn fx:id="colId" text="ID" prefWidth="45" minWidth="40" maxWidth="75"/>
+                                    <TableColumn fx:id="colNom" text="Nom" prefWidth="100" minWidth="100" maxWidth="140"/>
+                                    <TableColumn fx:id="colAdresse" text="Adresse" prefWidth="110" minWidth="110" maxWidth="180"/>
+                                    <TableColumn fx:id="colTelephone" text="Téléphone" prefWidth="90" minWidth="90" maxWidth="140"/>
+                                    <TableColumn fx:id="colEmail" text="Email" prefWidth="105" minWidth="100" maxWidth="180"/>
+                                    <TableColumn fx:id="colSiteWeb" text="Site Web" prefWidth="100" minWidth="100" maxWidth="140"/>
+                                    <TableColumn fx:id="colPersonneContact" text="Personne Contact" prefWidth="120" minWidth="100" maxWidth="140"/>
+                                    <TableColumn fx:id="colNotes" text="Notes" prefWidth="105" minWidth="100" maxWidth="180"/>
+                                    <TableColumn fx:id="colActions" text="Actions" prefWidth="110" minWidth="100" maxWidth="180"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
+
+                        <!-- Form (Ajouter) Panel -->
+                        <VBox spacing="30" styleClass="panel" prefWidth="390" HBox.hgrow="SOMETIMES">
+                            <Label text="Ajouter un Fournisseur" styleClass="section-title"/>
+                            <GridPane hgap="10" vgap="10">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="NEVER" minWidth="100"/>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                </columnConstraints>
+
+                                <Label text="Nom:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <TextField fx:id="formNom" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                <Label text="Adresse:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <TextField fx:id="formAdresse" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                                <Label text="Téléphone:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                <TextField fx:id="formTelephone" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                                <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                                <TextField fx:id="formEmail" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                                <Label text="Site Web:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                                <TextField fx:id="formSiteWeb" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                                <Label text="Personne Contact:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                                <TextField fx:id="formPersonneContact" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+                                <Label text="Notes:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+                                <TextField fx:id="formNotes" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+                                <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                    <HBox spacing="10">
+                                        <Button fx:id="btnAjouter" text="Ajouter" onAction="#handleAjouter" styleClass="btn btn-blue"/>
+                                        <Button fx:id="btnResetForm" text="Réinitialiser" onAction="#handleResetForm" styleClass="btn btn-reset"/>
+                                    </HBox>
+                                </HBox>
+                            </GridPane>
+                        </VBox>
+                    </HBox>
+                </content>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>

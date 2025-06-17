@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!-- Main layout using BorderPane -->
+<BorderPane fx:id="root" styleClass="root" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml" fx:controller="controller.ArticleController">
+
+    <!-- Sidebar -->
+    <left>
+        <VBox fx:id="sidebar" styleClass="sidebar">
+            <HBox styleClass="logo-container">
+                <Label text="📦 Menu" styleClass="logo-label"/>
+            </HBox>
+            <VBox fx:id="menuContainer" spacing="10"/>
+        </VBox>
+    </left>
+
+    <!-- Top Bar -->
+    <top>
+        <HBox fx:id="topBar" styleClass="top-bar">
+            <Label text="👋 Bonjour, Magasinier!" styleClass="greeting-label"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <HBox styleClass="user-section" spacing="10">
+                <StackPane>
+                    <ImageView fx:id="notificationIcon" fitHeight="24" fitWidth="24" styleClass="notification-icon" onMouseClicked="#handleNotificationClick">
+                        <Image url="https://img.icons8.com/?size=100&amp;id=qMWu1S8BC8jh&amp;format=png&amp;color=1E90FF"/>
+                    </ImageView>
+                    <Label fx:id="notificationBadge" text="0" styleClass="notification-badge"/>
+                </StackPane>
+                <HBox styleClass="user-profile">
+                    <ImageView fitHeight="24" fitWidth="24" styleClass="profile-icon">
+                        <Image url="https://img.icons8.com/?size=24&amp;id=85050&amp;format=png&amp;color=1E90FF"/>
+                    </ImageView>
+                    <Label fx:id="usernameLabel" styleClass="username-label"/>
+                </HBox>
+                <Button fx:id="logoutBtn" text="Déconnexion" styleClass="logout-btn" onAction="#handleLogout"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- Center content -->
+    <center>
+        <VBox styleClass="main-content" minHeight="700">
+            <ScrollPane fitToWidth="true" styleClass="main-content-scroll" pannable="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" minHeight="700">
+                <content>
+                    <HBox spacing="10" alignment="TOP_CENTER" styleClass="content-pane">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+
+                        <!-- Filters Panel -->
+                        <VBox spacing="30" styleClass="panel" prefWidth="350" HBox.hgrow="SOMETIMES">
+                            <Label text="Filtres" styleClass="section-title"/>
+                            <GridPane hgap="10" vgap="10">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="NEVER" minWidth="100"/>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                </columnConstraints>
+
+                                <Label text="ID:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <TextField fx:id="filterId" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                <Label text="Référence:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <TextField fx:id="filterReference" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                                <Label text="Nom:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                <TextField fx:id="filterNom" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                                <Label text="Catégorie:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                                <ComboBox fx:id="filterCategorie" GridPane.columnIndex="1" GridPane.rowIndex="3" maxWidth="Infinity"/>
+
+                                <HBox styleClass="filter-align-container" style="-fx-padding: 20 0 0 0" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2">
+                                    <Label text="Stock Minimal:" styleClass="filter-label"/>
+                                    <VBox spacing="5">
+                                        <HBox spacing="5" styleClass="slider-container" alignment="CENTER_LEFT">
+                                            <Label text="Min:" styleClass="slider-label"/>
+                                            <Slider fx:id="filterStockMinMin" min="0" max="500" showTickLabels="true" showTickMarks="true"/>
+                                        </HBox>
+                                        <HBox spacing="5" styleClass="slider-container" alignment="CENTER_LEFT">
+                                            <Label text="Max:" styleClass="slider-label"/>
+                                            <Slider fx:id="filterStockMinMax" min="0" max="500" showTickLabels="true" showTickMarks="true"/>
+                                        </HBox>
+                                        <HBox spacing="10">
+                                            <Label fx:id="stockMinMinLabel" text="0"/>
+                                            <Label text="-"/>
+                                            <Label fx:id="stockMinMaxLabel" text="500"/>
+                                        </HBox>
+                                    </VBox>
+                                </HBox>
+
+                                <Label text="Date Péremption:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+                                <DatePicker fx:id="filterDatePeremption" GridPane.columnIndex="1" GridPane.rowIndex="6" maxWidth="Infinity"/>
+
+                                <Label text="Options:" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+                                <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                    <CheckBox fx:id="filterEstCritique" text="Article critique"/>
+                                    <CheckBox fx:id="filterEstConsommable" text="Article consommable"/>
+                                </VBox>
+
+                                <Button fx:id="btnReset" text="Réinitialiser" onAction="#handleReset" styleClass="btn btn-reset"
+                                        GridPane.columnIndex="1" GridPane.rowIndex="8" maxWidth="Infinity"/>
+                            </GridPane>
+                        </VBox>
+
+                        <!-- Table Panel -->
+                        <VBox spacing="30" styleClass="panel" HBox.hgrow="ALWAYS">
+                            <Label text="Liste des Articles" styleClass="section-title"/>
+                            <TableView fx:id="tableArticles" styleClass="article-table" prefHeight="495">
+                                <columns>
+                                    <TableColumn fx:id="colId" text="ID" prefWidth="50" minWidth="50" maxWidth="75"/>
+                                    <TableColumn fx:id="colReference" text="Référence" prefWidth="90" minWidth="90" maxWidth="140"/>
+                                    <TableColumn fx:id="colNom" text="Nom" prefWidth="120" minWidth="100" maxWidth="140"/>
+                                    <TableColumn fx:id="colCategorie" text="Catégorie" prefWidth="120" minWidth="100" maxWidth="140"/>
+                                    <TableColumn fx:id="colStockMinimal" text="Stock Min" prefWidth="70" minWidth="80" maxWidth="120"/>
+                                    <TableColumn fx:id="colDatePeremption" text="Date Péremption" prefWidth="130" minWidth="110" maxWidth="150"/>
+                                    <TableColumn fx:id="colEstCritique" text="Critique" prefWidth="80" minWidth="60" maxWidth="100"/>
+                                    <TableColumn fx:id="colEstConsommable" text="Consommable" prefWidth="100" minWidth="80" maxWidth="120"/>
+                                    <TableColumn fx:id="colActions" text="Actions" prefWidth="120" minWidth="100" maxWidth="180"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
+
+                        <!-- Form (Ajouter) Panel -->
+                        <VBox spacing="30" styleClass="panel" prefWidth="350" HBox.hgrow="SOMETIMES">
+                            <Label text="Ajouter un Article" styleClass="section-title"/>
+                            <GridPane hgap="10" vgap="10">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="NEVER" minWidth="100"/>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                </columnConstraints>
+
+                                <Label text="Référence:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <TextField fx:id="formReference" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                <Label text="Nom:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <TextField fx:id="formNom" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                                <Label text="Catégorie:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                <ComboBox fx:id="formCategorie" GridPane.columnIndex="1" GridPane.rowIndex="2" maxWidth="Infinity"/>
+
+                                <Label text="Stock Minimal:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                                <Spinner fx:id="formStockMinimal" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                                <Label text="Date Péremption:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                                <DatePicker fx:id="formDatePeremption" GridPane.columnIndex="1" GridPane.rowIndex="4" maxWidth="Infinity"/>
+
+                                <Label text="Options:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                                <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                    <CheckBox fx:id="formEstCritique" text="Article critique"/>
+                                    <CheckBox fx:id="formEstConsommable" text="Article consommable"/>
+                                </VBox>
+                            </GridPane>
+                            <HBox alignment="CENTER">
+                                <HBox spacing="10">
+                                    <Button fx:id="btnAjouter" text="Ajouter" onAction="#handleAjouter" styleClass="btn btn-blue"/>
+                                    <Button fx:id="btnResetForm" text="Réinitialiser" onAction="#handleResetForm" styleClass="btn btn-reset"/>
+                                </HBox>
+                            </HBox>
+                        </VBox>
+                    </HBox>
+                </content>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>

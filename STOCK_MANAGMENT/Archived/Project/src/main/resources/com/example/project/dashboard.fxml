@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<BorderPane fx:id="root" styleClass="root" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StockDashboardController">
+    <!-- Sidebar -->
+    <left>
+        <VBox fx:id="sidebar" styleClass="sidebar">
+            <HBox styleClass="logo-container">
+                <Label text="📦 Menu" styleClass="logo-label"/>
+            </HBox>
+            <VBox fx:id="menuContainer" spacing="10"/>
+        </VBox>
+    </left>
+    <!-- Top Bar -->
+    <top>
+        <HBox fx:id="topBar" styleClass="top-bar">
+            <Label text="👋 Bonjour, Magasinier!" styleClass="greeting-label"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <HBox styleClass="user-section" spacing="10">
+                <StackPane>
+                    <ImageView fx:id="notificationIcon" fitHeight="24" fitWidth="24" styleClass="notification-icon" onMouseClicked="#handleNotificationClick">
+                        <Image url="https://img.icons8.com/?size=100&amp;id=qMWu1S8BC8jh&amp;format=png&amp;color=1E90FF"/>
+                    </ImageView>
+                    <Label fx:id="notificationBadge" text="0" styleClass="notification-badge"/>
+                </StackPane>
+                <HBox styleClass="user-profile">
+                    <ImageView fitHeight="24" fitWidth="24" styleClass="profile-icon">
+                        <Image url="https://img.icons8.com/?size=24&amp;id=85050&amp;format=png&amp;color=1E90FF"/>
+                    </ImageView>
+                    <Label fx:id="usernameLabel" styleClass="username-label"/>
+                </HBox>
+                <Button fx:id="logoutBtn" text="Déconnexion" styleClass="logout-btn" onAction="#handleLogout"/>
+            </HBox>
+        </HBox>
+    </top>
+    <!-- Main Content -->
+    <center>
+        <VBox>
+            <ScrollPane fx:id="scrollPane" fitToWidth="true" styleClass="main-content-scroll" pannable="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+                <content>
+                    <VBox fx:id="mainContent" styleClass="main-content">
+                        <!-- Header -->
+                        <HBox alignment="CENTER_LEFT" spacing="20">
+                            <Label text="Vue d'ensemble" styleClass="dashboard-title"/>
+                            <HBox HBox.hgrow="ALWAYS"/>
+                            <Button fx:id="generatePdfBtn" text="Générer Fichier Commandes" styleClass="blue-button"/>
+                        </HBox>
+                        <!-- Categories -->
+                        <Label text="Catégories" styleClass="section-title"/>
+                        <HBox fx:id="categories" spacing="20" alignment="CENTER_LEFT"/>
+                    </VBox>
+                </content>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>

@@ -1,0 +1,7 @@
+Commandes Log
+-------------
+ID   | Date                | Articles                       | Quantité | Local                | Type    
+---- | ------------------- | ------------------------------ | -------- | -------------------- | --------
+1    | 2025-05-09 00:00:00 | Colle                          | 5        | C_11		      | Interne 
+1    | 2025-05-08 00:00:00 | Gants,Colle                    | 20       | Bibliothèque_1       | Externe 
+2    | 2025-05-08 00:00:00 | Colle                          | 25       | C_01,C_11            | Externe 

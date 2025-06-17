@@ -1,0 +1,7 @@
+Commandes Log
+-------------
+ID   | Date                | Articles                       | Quantité | Local                | Type    
+---- | ------------------- | ------------------------------ | -------- | -------------------- | --------
+1    | 2025-05-09 00:00:00 | Aucun article                  | 0        | No Location          | Interne 
+1    | 2025-05-08 00:00:00 | Gants                          | 15       | No Location          | Externe 
+2    | 2025-05-08 00:00:00 | Aucun article                  | 0        | No Location          | Externe 

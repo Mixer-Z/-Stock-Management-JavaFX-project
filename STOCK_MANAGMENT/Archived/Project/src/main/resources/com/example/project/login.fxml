@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="root" style="-fx-background-color:#d5e2f6 ;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+    <padding>
+        <Insets top="40" right="40" bottom="40" left="40"/>
+    </padding>
+    <VBox fx:id="loginLayout" alignment="CENTER" spacing="15" maxWidth="300" style="-fx-background-color: #f9f9f9; -fx-border-radius: 10; -fx-background-radius: 10;">
+        <padding>
+            <Insets top="30" right="30" bottom="30" left="30"/>
+        </padding>
+        <ImageView fx:id="profileImage">
+            <image>
+                <Image url="https://img.icons8.com/?size=100&amp;id=83190&amp;format=png&amp;color=1e90ff"/>
+            </image>
+        </ImageView>
+        <TextField fx:id="usernameField" promptText="Nom d'utilisateur" styleClass="text-field"/>
+        <PasswordField fx:id="passwordField" promptText="Mot de passe" styleClass="password-field"/>
+        <Button fx:id="loginButton" text="Se connecter" maxWidth="Infinity" styleClass="button" onAction="#handleLogin"/>
+        <Label fx:id="errorLabel" styleClass="label,error"/>
+        <Label fx:id="signupLabel" text="Vous êtes nouveau ? Inscription" styleClass="label,signup" onMouseClicked="#handleSignup"/>
+    </VBox>
+</StackPane>
